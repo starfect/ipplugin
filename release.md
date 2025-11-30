@@ -8,6 +8,7 @@
 
 ## 설정/빌드
 - `config.yml`에서 API 선택/토큰, 권한 모드(OP/User), 커맨드 별칭 설정
+- `1.21.*` 서버의 `plugins` 폴더에 넣기.
 - Java 21, Maven 빌드: `mvn clean package`
 
 ## 변경 사항
