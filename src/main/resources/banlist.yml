@@ -1,0 +1,11 @@
+# banlist.yml
+# this is a blacklist
+
+ban-user:
+    # ex. example: ban
+    # ex. username: ban
+
+ban-country:
+    # ex. US: ban
+    # ex. UK: ban
+    # ex. RU: ban

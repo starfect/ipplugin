@@ -1,0 +1,18 @@
+name: IPPlugin
+main: me.starfect.ipplugin.IPPlugin
+version: 1.0.0
+api-version: '1.21'
+author: starfect
+description: IP checker and ban plugin using ip-api.com or ipinfo.io
+commands:
+  ip:
+    description: IP plugin commands
+    usage: /ip help
+    aliases: [ipinfo, ipcheck]
+permissions:
+  ipplugin.user:
+    description: Access to self IP check and help
+    default: true
+  ipplugin.admin:
+    description: Access to manage bans and check others
+    default: op

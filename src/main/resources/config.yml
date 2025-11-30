@@ -1,0 +1,23 @@
+# config.yml
+# your api token here
+
+api:
+    api: a
+    # a = ip-api.com API Key
+    # b = ipinfo.io API Key
+    # ex. api: a
+    api-token:
+
+# config plugin
+
+custom:
+    command-help: help
+    command-ip-check: check
+    command-all: all
+
+country-ban: true
+
+user-ban: true
+
+permission: OP
+# permission: OP / User
