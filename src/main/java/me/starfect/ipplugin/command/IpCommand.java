@@ -15,6 +15,7 @@ import me.starfect.ipplugin.data.IpInfo;
 import me.starfect.ipplugin.data.UserListStorage;
 import me.starfect.ipplugin.gui.AllPlayersGui;
 import me.starfect.ipplugin.util.PermissionUtil;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -172,7 +173,7 @@ public final class IpCommand implements CommandExecutor, TabCompleter {
             }
             boolean added = banStorage.banUser(ip);
             banStorage.banUser(player.getName());
-            player.kick(ChatColor.RED + "IP 밴 처리되었습니다.");
+            player.kick(Component.text(ChatColor.RED + "IP 밴 처리되었습니다."));
             sender.sendMessage(added
                     ? ChatColor.RED + "IP " + ip + " 를 밴했습니다."
                     : ChatColor.YELLOW + "이미 밴된 IP/유저입니다.");

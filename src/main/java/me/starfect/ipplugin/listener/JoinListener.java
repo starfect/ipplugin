@@ -7,6 +7,7 @@ import me.starfect.ipplugin.config.PluginSettings;
 import me.starfect.ipplugin.data.BanStorage;
 import me.starfect.ipplugin.data.IpInfo;
 import me.starfect.ipplugin.data.UserListStorage;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -74,6 +75,7 @@ public final class JoinListener implements Listener {
     }
 
     private void kick(Player player, String reason) {
-        Bukkit.getScheduler().runTask(plugin, () -> player.kick(ChatColor.translateAlternateColorCodes('&', reason)));
+        Bukkit.getScheduler().runTask(plugin, () ->
+                player.kick(Component.text(ChatColor.translateAlternateColorCodes('&', reason))));
     }
 }

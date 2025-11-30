@@ -9,6 +9,7 @@ import me.starfect.ipplugin.IPPlugin;
 import me.starfect.ipplugin.config.PluginSettings;
 import me.starfect.ipplugin.data.BanStorage;
 import me.starfect.ipplugin.util.PermissionUtil;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -109,11 +110,11 @@ public final class AllPlayersGui implements Listener {
                 banStorage.banUser(ip);
                 banStorage.banUser(target.getName());
                 player.sendMessage(ChatColor.RED + target.getName() + " 의 IP를 밴했습니다.");
-                target.kick(ChatColor.RED + "IP가 밴되어 퇴장됩니다.");
+                target.kick(Component.text(ChatColor.RED + "IP가 밴되어 퇴장됩니다."));
             }
             open(player);
         } else if (event.isRightClick()) {
-            target.kick(ChatColor.RED + "관리자에 의해 퇴장되었습니다.");
+            target.kick(Component.text(ChatColor.RED + "관리자에 의해 퇴장되었습니다."));
             player.sendMessage(ChatColor.YELLOW + target.getName() + " 을(를) 퇴장시켰습니다.");
         }
     }
