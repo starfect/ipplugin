@@ -2,8 +2,8 @@ name: Build Release
 
 on:
   push:
-    paths:
-      - '**'
+    branches:
+      - main
   release:
     types: [published]
   workflow_dispatch:
@@ -38,3 +38,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: target/*.jar
+          body_path: release.md
+          fail_on_unmatched_files: true
