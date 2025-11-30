@@ -68,6 +68,7 @@ ban-country:
     # ex. US: ban
     # ex. UK: ban
     # ex. RU: ban
+    # ex. KR: ban
 ```
 
 
@@ -95,4 +96,5 @@ user-list:
 > `config.yml` 의 api: 에 a 를 넣으면 ip-api.com 의 API 를 사용하고,
 > b 를 넣으면 ipinfo.io 의 API 를 사용.
 >
+
 > 모든 기능은 시뮬레이션, 예시로 넣지 말고 실제 작동하게 코드 작성
