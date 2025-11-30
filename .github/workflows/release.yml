@@ -1,6 +1,9 @@
 name: Build Release
 
 on:
+  push:
+    paths:
+      - '**'
   release:
     types: [published]
   workflow_dispatch:
