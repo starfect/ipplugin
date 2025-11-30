@@ -1,6 +1,6 @@
 # IPPlugin
 
-Minecraft Paper 1.21.4 용 IP 정보 조회 및 IP/국가 차단 플러그인입니다. `ip-api.com` 혹은 `ipinfo.io` API를 선택해 사용할 수 있습니다.
+Minecraft Paper 1.21.6 용 IP 정보 조회 및 IP/국가 차단 플러그인입니다. `ip-api.com` 혹은 `ipinfo.io` API를 선택해 사용할 수 있습니다.
 
 ## 설치
 1. `config.yml`, `banlist.yml`, `userlist.yml` 가 없다면 플러그인이 기본값을 생성합니다.
