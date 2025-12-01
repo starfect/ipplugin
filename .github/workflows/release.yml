@@ -63,7 +63,12 @@ jobs:
       - name: Rename JAR file
         run: |
           VERSION=${{ steps.version.outputs.version }}
-          mv target/*.jar target/ipplugin-v${VERSION}.jar
+          # target 디렉터리의 JAR 파일 확인
+          ls -la target/*.jar
+          # 첫 번째 JAR 파일을 찾아서 이름 변경
+          ORIGINAL_JAR=$(ls target/*.jar | head -n 1)
+          cp "$ORIGINAL_JAR" target/ipplugin-v${VERSION}.jar
+          echo "Renamed: $ORIGINAL_JAR -> target/ipplugin-v${VERSION}.jar"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
