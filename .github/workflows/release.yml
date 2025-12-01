@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -22,21 +24,81 @@ jobs:
           java-version: 21
           cache: maven
 
+      - name: Get current version and increment
+        id: version
+        run: |
+          # pom.xml에서 현재 버전 추출
+          CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "Current version: $CURRENT_VERSION"
+          
+          # 버전을 . 기준으로 분리
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
+          
+          # 패치 버전 증가
+          PATCH=$((PATCH + 1))
+          
+          # 9를 넘으면 상위 버전 증가
+          if [ $PATCH -gt 9 ]; then
+            PATCH=0
+            MINOR=$((MINOR + 1))
+          fi
+          
+          if [ $MINOR -gt 9 ]; then
+            MINOR=0
+            MAJOR=$((MAJOR + 1))
+          fi
+          
+          NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          echo "New version: $NEW_VERSION"
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Update version in pom.xml
+        run: |
+          mvn versions:set -DnewVersion=${{ steps.version.outputs.version }}
+          mvn versions:commit
+
       - name: Build with Maven
         run: mvn -B clean package
+
+      - name: Rename JAR file
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          mv target/*.jar target/ipplugin-v${VERSION}.jar
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ipplugin-jar
-          path: target/*.jar
+          path: target/ipplugin-v${{ steps.version.outputs.version }}.jar
 
-      - name: Upload release asset
+      - name: Commit version update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pom.xml
+          git commit -m "chore: bump version to ${{ steps.version.outputs.version }}"
+          git push
+
+      - name: Create Release
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Release v${{ steps.version.outputs.version }}
+          files: target/ipplugin-v${{ steps.version.outputs.version }}.jar
+          body_path: release.md
+          fail_on_unmatched_files: true
+          draft: false
+          prerelease: false
+
+      - name: Upload release asset (for manual release)
         if: github.event_name == 'release' && github.event.action == 'published'
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: target/*.jar
+          files: target/ipplugin-v${{ steps.version.outputs.version }}.jar
           body_path: release.md
           fail_on_unmatched_files: true
