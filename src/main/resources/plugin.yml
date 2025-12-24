@@ -1,7 +1,8 @@
 name: IPPlugin
 main: me.starfect.ipplugin.IPPlugin
-version: 1.0.0
+version: 1.0.2
 api-version: '1.21'
+folia-support: true
 author: starfect
 description: IP checker and ban plugin using ip-api.com or ipinfo.io
 commands:
