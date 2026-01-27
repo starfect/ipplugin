@@ -1,6 +1,6 @@
 name: IPPlugin
 main: me.starfect.ipplugin.IPPlugin
-version: 1.0.2
+version: 1.0.3
 api-version: '1.21'
 folia-support: true
 author: starfect
